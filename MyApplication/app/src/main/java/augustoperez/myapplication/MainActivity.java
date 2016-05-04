@@ -1,6 +1,8 @@
 package augustoperez.myapplication;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -54,10 +56,10 @@ public class MainActivity extends Activity{
             @Override
 
             public void onClick(View arg0) {
-                Calendar current = Calendar.getInstance();
+                GregorianCalendar current = (GregorianCalendar) GregorianCalendar.getInstance();
                 if(arg0.getId() == R.id.setalarm) {
 
-                    Calendar cal = Calendar.getInstance();
+                    GregorianCalendar cal = (GregorianCalendar) GregorianCalendar.getInstance();
                     cal.set(pickerDate.getYear(),
                             pickerDate.getMonth(),
                             pickerDate.getDayOfMonth(),
@@ -70,8 +72,13 @@ public class MainActivity extends Activity{
                         Toast.makeText(getApplicationContext(),
                                 "Invalid Date/Time",
                                 Toast.LENGTH_LONG).show();
-                    } else {
+                    } else { Toast.makeText(getApplicationContext(),
+                            "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxInvalid Date/Time",
+                            Toast.LENGTH_LONG).show();
                         setAlarm(cal);
+                        Toast.makeText(getApplicationContext(),
+                                "uyyyyyyyye",
+                                Toast.LENGTH_LONG).show();
                     }
                 }
                 if(arg0.getId() == R.id.delalarm){
@@ -82,16 +89,19 @@ public class MainActivity extends Activity{
             }});
     }
 
-    private void setAlarm(Calendar targetCal){
+    private void setAlarm(GregorianCalendar targetCal){
 
         info.setText("\n\n***\n"
                 + "Alarm is set@ " + targetCal.getTime() + "\n"
-                + "***\n");
+                + "***\n " +  targetCal.get(GregorianCalendar.DAY_OF_MONTH));
 
         Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), RQS_1, intent, 0);
+
+        PendingIntent alarme = PendingIntent.getBroadcast(getBaseContext(), RQS_1, intent, 0);
+
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pendingIntent);
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), alarme);
     }
 
 }
