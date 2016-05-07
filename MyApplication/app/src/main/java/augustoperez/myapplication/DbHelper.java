@@ -34,10 +34,11 @@ public class DbHelper extends SQLiteOpenHelper {
                 + LOCALEVENTO + "text"
                 +DATATOTAL+"timestamp"
                 +")";
+        db.execSQL(sql);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS"+ TABELA);
     }
 }
