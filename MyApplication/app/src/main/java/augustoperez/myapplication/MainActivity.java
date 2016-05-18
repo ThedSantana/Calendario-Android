@@ -73,7 +73,7 @@ public class MainActivity extends Activity{
                                 "Invalid Date/Time",
                                 Toast.LENGTH_LONG).show();
                     } else { Toast.makeText(getApplicationContext(),
-                            "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxInvalid Date/Time",
+                            "Data ou Hora Inválida",
                             Toast.LENGTH_LONG).show();
                         setAlarm(cal);
                         Toast.makeText(getApplicationContext(),
